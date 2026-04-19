@@ -266,29 +266,95 @@ body {
   🔹 FULL-SCREEN AUTH PAGE
    ════════════════════════════════════════════ */
 .auth-fullscreen {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); /* Deep base */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 🎨 VIBRANT DUAL GRADIENT BACKGROUND */
+.auth-bg-glow {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--bg-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  z-index: -1;
+  background: linear-gradient(45deg, #7f1d1d 0%, #1e3a8a 100%); /* Vibrant Red to Blue */
+  opacity: 0.8;
+}
+
+.auth-bg-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(15, 23, 42, 0.4) 100%);
+}
+
+.auth-glow-blob {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: -1;
+  animation: blobFloat 20s infinite alternate ease-in-out;
+}
+
+@keyframes blobFloat {
+  0% { transform: translate(-10%, -10%) scale(1); }
+  100% { transform: translate(10%, 10%) scale(1.2); }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-on-scroll.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-on-scroll p, .reveal-on-scroll .text-muted {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .auth-card {
   position: relative;
   z-index: 10;
   width: 100%;
-  max-width: 440px;
-  background: var(--glass-bg);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  box-shadow: var(--card-shadow);
-  color: var(--text-color);
+  max-width: 540px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  backdrop-filter: blur(30px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff !important;
+  padding: 3.5rem !important;
+  margin: 2rem 0;
+}
+
+.auth-card h2, .auth-card p, .auth-card label {
+  color: #ffffff !important;
+}
+
+.auth-card .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Global fix for any black text in glass cards on auth pages */
+.auth-fullscreen .glass-card p, 
+.auth-fullscreen .glass-card span,
+.auth-fullscreen .glass-card div {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.auth-fullscreen .text-muted {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .auth-icon {
@@ -309,18 +375,28 @@ body {
 }
 
 .auth-input {
-  border: 2px solid #e2e8f0 !important;
-  border-radius: 12px !important;
-  padding: 14px 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 16px !important;
+  padding: 16px 20px !important;
   font-size: 1rem !important;
   transition: all 0.3s ease;
-  background: #f8fafc !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .auth-input:focus {
   border-color: #ef4444 !important;
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
-  background: #fff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2) !important;
+}
+
+.auth-input option {
+  background: #1e293b;
+  color: white;
 }
 
 .auth-btn {
@@ -338,9 +414,29 @@ body {
 
 .auth-btn:hover {
   background: linear-gradient(135deg, #b91c1c, #dc2626);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
   color: white;
+}
+
+.feature-icon-box {
+  width: 60px;
+  height: 60px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover .feature-icon-box {
+  background: #ef4444;
+  color: white;
+  transform: rotate(-10deg) scale(1.1);
 }
 
 .auth-link {
@@ -560,4 +656,148 @@ body {
   50% {
     opacity: 0.5;
   }
+}
+
+/* ════════════════════════════════════════════
+   🔹 FOOTER STYLES
+   ════════════════════════════════════════════ */
+.footer-glass {
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--glass-border);
+  color: #ffffff !important; /* Force white text */
+  margin-top: 100px;
+}
+
+.footer-glass p, .footer-glass span, .footer-glass h6 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+/* ════════════════════════════════════════════
+   🔹 SPLASH SCREEN & INTRO
+   ════════════════════════════════════════════ */
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s ease, visibility 1s;
+}
+
+.splash-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  animation: splashPop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.splash-text {
+  margin-top: 2rem;
+  font-size: 3.5rem; /* Increased size */
+  font-weight: 900; /* Max boldness */
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #ffffff 0%, #ef4444 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  filter: drop-shadow(0 10px 20px rgba(239, 68, 68, 0.3));
+  animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.6s;
+}
+
+.login-entrance {
+  animation: slideUpEntrance 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideUpEntrance {
+  from { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes splashPop {
+  0% { transform: scale(0); opacity: 0; filter: blur(10px); }
+  100% { transform: scale(1); opacity: 1; filter: blur(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════════════════════════════
+   🔹 SPLIT STORY SECTION
+   ════════════════════════════════════════════ */
+.story-image {
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transition: transform 0.5s ease;
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.story-image:hover {
+  transform: scale(1.02);
+}
+
+.auth-fullscreen .flex-grow-1 {
+  transition: filter 1s ease, opacity 1s ease;
+}
+
+.blur-in {
+  filter: blur(20px);
+  opacity: 0;
+}
+
+.blur-out {
+  filter: blur(0);
+  opacity: 1;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  opacity: 1;
+  color: #ef4444;
+  padding-left: 5px;
+}
+
+.social-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--glass-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--glass-border);
+}
+
+.social-icon-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Navbar spacing fixes */
+.glass-nav .container-fluid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-nav {
+  gap: 15px;
 }

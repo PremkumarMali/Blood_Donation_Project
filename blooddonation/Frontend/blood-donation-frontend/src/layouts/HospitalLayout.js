@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import Footer from "../components/Footer";
 
 function HospitalLayout() {
   const navigate = useNavigate();
@@ -17,10 +18,10 @@ function HospitalLayout() {
   };
 
   return (
-    <div className="bg-hospital min-vh-100">
+    <div className="bg-hospital min-vh-100 d-flex flex-column">
       {/* 🔹 TOP GLASS NAVBAR */}
       <nav className="navbar navbar-expand-lg glass-nav">
-        <div className="container">
+        <div className="container-fluid px-5">
           <Link className="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" to="/hospital">
             <span className="me-2 text-white"></span> Hospital Portal
           </Link>
@@ -31,10 +32,10 @@ function HospitalLayout() {
 
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center">
-              <li className="nav-item mx-2">
+              <li className="nav-item">
                 <Link to="/hospital" className="nav-link text-white fw-medium">Dashboard</Link>
               </li>
-              <li className="nav-item mx-2">
+              <li className="nav-item">
                 <Link to="/hospital/orders" className="nav-link text-white fw-medium">Blood Requests</Link>
               </li>
 
@@ -52,14 +53,14 @@ function HospitalLayout() {
                 </div>
               </li>
 
-              <li className="nav-item mx-2">
-                <span className="badge rounded-pill px-3 py-2 ms-3" style={{backgroundColor: '#00695C', border: '1px solid #4FC3F7'}}>
+              <li className="nav-item ms-3">
+                <span className="badge rounded-pill px-3 py-2" style={{backgroundColor: '#00695C', border: '1px solid #4FC3F7'}}>
                    {user.username}
                 </span>
               </li>
               <li className="nav-item ms-3">
                 <button
-                  className="btn btn-outline-light rounded-pill px-4"
+                  className="btn btn-outline-light rounded-pill px-4 btn-sm"
                   onClick={handleLogout}
                 >
                   Logout
@@ -71,11 +72,14 @@ function HospitalLayout() {
       </nav>
 
       {/* 🔹 MAIN CONTENT */}
-      <main className="container-fluid py-5 page-enter">
+      <main className="container-fluid py-5 page-enter flex-grow-1">
         <div className="container">
           <Outlet />
         </div>
       </main>
+
+      {/* 🔹 FOOTER */}
+      <Footer />
     </div>
   );
 }

@@ -138,10 +138,7 @@ function Dashboard() {
       <h2 className="fw-bold mb-4 text-white">Welcome, {user.username}</h2>
 
       <div className="row mb-5">
-        <div className="col-md-8">
-           <BadgeSystem badges={user.badges} points={user.points} />
-        </div>
-        <div className="col-md-4">
+        <div className="col-md-12">
            <ImpactCard orders={orders} />
         </div>
       </div>

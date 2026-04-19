@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import BadgeSystem from "../components/BadgeSystem";
 
 function Profile() {
 
@@ -8,9 +9,15 @@ function Profile() {
 
   useEffect(() => {
     const loggedUser = JSON.parse(localStorage.getItem("user"));
-    setUser(loggedUser);
-
+    
     if (loggedUser) {
+      // Fetch latest user data to get points/badges
+      axios.get(`http://localhost:8080/api/users/${loggedUser.user_id}`)
+        .then(res => {
+          setUser(res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+        });
+
       axios
         .get(`http://localhost:8080/api/orders/user/${loggedUser.user_id}`)
         .then(res => setRequests(res.data));
@@ -19,18 +26,25 @@ function Profile() {
 
   return (
     <div className="py-4">
-      <h2 className="fw-bold mb-4 text-white">User Profile</h2>
+      <h2 className="fw-bold mb-4 text-white">My Profile</h2>
 
-      <div className="glass-card p-4 mb-5 border-0 shadow-lg">
-        <div className="row">
-          <div className="col-md-6">
-            <p className="mb-2 opacity-75">Username</p>
-            <h5 className="fw-bold">{user?.username}</h5>
+      <div className="row mb-5">
+        <div className="col-md-4">
+          <div className="glass-card p-4 h-100 border-0 shadow-lg text-center">
+            <div className="auth-icon mb-3" style={{fontSize: '5rem'}}>👤</div>
+            <h4 className="fw-bold">{user?.username}</h4>
+            <p className="text-muted small mb-0">{user?.role || 'Donor'}</p>
+            <hr className="my-4 opacity-25" />
+            <div className="text-start">
+              <p className="mb-1 opacity-75 small text-uppercase">Email</p>
+              <p className="fw-bold small">{user?.email}</p>
+              <p className="mb-1 mt-3 opacity-75 small text-uppercase">Blood Group</p>
+              <span className="badge bg-danger px-3">{user?.bloodGroup || 'N/A'}</span>
+            </div>
           </div>
-          <div className="col-md-6">
-            <p className="mb-2 opacity-75">Email Address</p>
-            <h5 className="fw-bold">{user?.email}</h5>
-          </div>
+        </div>
+        <div className="col-md-8">
+           <BadgeSystem badges={user?.badges} points={user?.points} />
         </div>
       </div>
 

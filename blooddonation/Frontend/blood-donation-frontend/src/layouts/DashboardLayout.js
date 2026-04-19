@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import VeinBackground from "../components/VeinBackground";
+import Footer from "../components/Footer";
 
 function DashboardLayout() {
   const navigate = useNavigate();
@@ -18,22 +19,36 @@ function DashboardLayout() {
   };
 
   return (
-    <div className="min-vh-100 position-relative">
+    <div className="min-vh-100 d-flex flex-column position-relative">
       <VeinBackground />
       
       {/* 🔹 TOP GLASS NAVBAR */}
       <nav className="navbar navbar-expand-lg glass-nav sticky-top">
-        <div className="container">
+        <div className="container-fluid px-5"> {/* Using container-fluid for max width */}
           <Link className="navbar-brand fw-bold fs-3 d-flex align-items-center" to="/user" style={{color: 'var(--text-color)'}}>
             ❤️ BloodLink
           </Link>
           
+          <button className="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center">
-              <li className="nav-item mx-2">
+              <li className="nav-item">
                 <Link to="/user" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Dashboard</Link>
               </li>
               
+              <li className="nav-item">
+                <Link to="/user/find-donor" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Find Donor</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/user/donate-blood" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Donate Blood</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/user/profile" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Profile</Link>
+              </li>
+
               {/* 🎨 THEME SWITCHER */}
               <li className="nav-item ms-3">
                 <div className="btn-group btn-group-sm glass-card p-1">
@@ -51,23 +66,15 @@ function DashboardLayout() {
                   >🩸</button>
                 </div>
               </li>
-              <li className="nav-item mx-2">
-                <Link to="/user/find-donor" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Find Donor</Link>
-              </li>
-              <li className="nav-item mx-2">
-                <Link to="/user/donate-blood" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Donate Blood</Link>
-              </li>
-              <li className="nav-item mx-2">
-                <Link to="/user/profile" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Profile</Link>
-              </li>
-              <li className="nav-item mx-2">
-                <span className="badge bg-danger rounded-pill px-3 py-2 ms-3">
+
+              <li className="nav-item ms-3">
+                <span className="badge bg-danger rounded-pill px-3 py-2">
                    Donor: {user.username}
                 </span>
               </li>
               <li className="nav-item ms-3">
                 <button
-                  className="btn btn-outline-danger rounded-pill px-4"
+                  className="btn btn-outline-danger rounded-pill px-4 btn-sm"
                   onClick={handleLogout}
                 >
                   Logout
@@ -79,11 +86,14 @@ function DashboardLayout() {
       </nav>
 
       {/* 🔹 MAIN CONTENT */}
-      <main className="container-fluid py-5 page-enter">
+      <main className="container-fluid py-5 page-enter flex-grow-1">
         <div className="container">
           <Outlet />
         </div>
       </main>
+
+      {/* 🔹 FOOTER */}
+      <Footer />
     </div>
   );
 }

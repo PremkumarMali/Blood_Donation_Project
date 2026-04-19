@@ -1,5 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import Footer from "../components/Footer";
 
 function AdminLayout() {
   const navigate = useNavigate();
@@ -71,11 +72,14 @@ function AdminLayout() {
       </nav>
 
       {/* 🔹 MAIN CONTENT */}
-      <main className="container-fluid py-5 page-enter">
+      <main className="container-fluid py-5 page-enter flex-grow-1">
         <div className="container">
           <Outlet />
         </div>
       </main>
+
+      {/* 🔹 FOOTER */}
+      <Footer />
     </div>
   );
 }
