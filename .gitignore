@@ -1,0 +1,28 @@
+# Dependencies
+**/node_modules/
+**/target/
+**/build/
+**/dist/
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+.springBeans
+.sts4-cache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Misc
+.mvn/wrapper/maven-wrapper.jar
