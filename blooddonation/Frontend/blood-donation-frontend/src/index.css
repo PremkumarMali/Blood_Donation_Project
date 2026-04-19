@@ -1,0 +1,563 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --admin-gradient: linear-gradient(135deg, #6A1B9A 0%, #FB8C00 100%);
+  --hospital-gradient: linear-gradient(135deg, #00695C 0%, #4FC3F7 100%);
+  --user-gradient: linear-gradient(135deg, #6a1010 0%, #e62626 50%, #ffffff 100%);
+
+  /* Role Specific Backgrounds */
+  --hospital-bg-dark: #004d40;
+  --hospital-bg-light: #E0F7FA;
+  --bloodbank-bg-dark: #1A1A2E;
+  --bloodbank-bg-purple: #6A1B9A;
+  --bloodbank-bg-orange: #FB8C00;
+
+  /* Glassmorphism Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(127, 29, 29, 0.15);
+  --glass-blur: blur(25px);
+  --card-shadow: 0 8px 32px 0 rgba(127, 29, 29, 0.1);
+
+  /* Default Theme (Light - Cream Bluish) */
+  --bg-color: #004993;
+  --text-color: #eff1f4;
+  --nav-bg: rgba(244, 247, 250, 0.85);
+}
+
+[data-theme='dark'] {
+  --bg-color: #0f172a;
+  --text-color: #ffffff;
+  --nav-bg: rgba(15, 23, 42, 0.9);
+  --glass-bg: rgba(30, 41, 59, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .bg-hospital,
+[data-theme='dark'] .bg-admin {
+  filter: brightness(0.8) contrast(1.1);
+}
+
+[data-theme='dark'] .glass-card {
+  background: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme='blood'] {
+  --bg-color: #2b0303;
+  --text-color: #ffffff;
+  --nav-bg: rgba(69, 10, 10, 0.8);
+  --glass-bg: rgba(107, 88, 88, 0.3);
+  --glass-border: rgba(254, 202, 202, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 🧬 VEIN FLOW ANIMATION (Background) */
+.vein-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--bg-color);
+  overflow: hidden;
+}
+
+.vein-background::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.2), transparent);
+  transform: translateY(-50%);
+  animation: veinPulse 8s linear infinite;
+}
+
+@keyframes veinPulse {
+  0% {
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateX(0%) translateY(-50%);
+    opacity: 0.3;
+  }
+}
+
+/* 🎨 PREMIUM MESH GRADIENT BACKGROUND */
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(239, 68, 68, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.05) 0px, transparent 50%);
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+.mesh-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.mesh-circle {
+  position: absolute;
+  filter: blur(100px);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: mesh-move 25s infinite alternate ease-in-out;
+}
+
+@keyframes mesh-move {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30vw, 20vh) scale(1.3); }
+  66% { transform: translate(-20vw, 40vh) scale(0.7); }
+  100% { transform: translate(15vw, -10vh) scale(1.1); }
+}
+
+.blood-cell-flow {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 30% 30%, #ff4d4d, #7f1d1d);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  animation: flowRight var(--duration) linear infinite;
+  top: var(--top);
+  opacity: 0.6;
+}
+
+/* 🏥 HOSPITAL BACKGROUND & ANIMATION */
+.bg-hospital {
+  background: var(--hospital-bg-light);
+  background: linear-gradient(-45deg, #00695C, #4FC3F7, #E0F7FA, #004d40);
+  background-size: 400% 400%;
+  animation: hospitalGradient 15s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes hospitalGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-hospital::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(224, 247, 250, 0.3) 100%);
+  pointer-events: none;
+}
+
+/* 🩸 BLOOD BANK BACKGROUND & ANIMATION */
+.bg-admin {
+  background: var(--bloodbank-bg-dark);
+  background: linear-gradient(135deg, #1A1A2E 0%, #6A1B9A 50%, #FB8C00 100%);
+  background-size: 400% 400%;
+  animation: bloodbankGradient 12s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes bloodbankGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-admin::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at center, rgba(106, 27, 154, 0.1) 0%, transparent 70%);
+  animation: rotateGlow 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateGlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes flowRight {
+  from {
+    left: -100px;
+  }
+
+  to {
+    left: 110vw;
+  }
+}
+
+/* ════════════════════════════════════════════
+  🔹 GLASSMORPHISM (Enhanced)
+   ════════════════════════════════════════════ */
+.glass-card {
+  background: var(--glass-bg) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: 20px !important;
+  color: var(--text-color) !important;
+}
+
+/* ════════════════════════════════════════════
+  🔹 FULL-SCREEN AUTH PAGE
+   ════════════════════════════════════════════ */
+.auth-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.auth-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+  color: var(--text-color);
+}
+
+.auth-icon {
+  font-size: 3.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.auth-input {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  padding: 14px 18px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease;
+  background: #f8fafc !important;
+}
+
+.auth-input:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15) !important;
+  background: #fff !important;
+}
+
+.auth-btn {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.auth-btn:hover {
+  background: linear-gradient(135deg, #b91c1c, #dc2626);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+  color: white;
+}
+
+.auth-link {
+  color: #dc2626;
+  transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+  color: #b91c1c;
+}
+
+/* ════════════════════════════════════════════
+   🔹 GLASSMORPHISM (Nav + Cards)
+   ════════════════════════════════════════════ */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.12) !important;
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.163) !important;
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* ════════════════════════════════════════════
+   🔹 WELCOME SCREEN
+   ════════════════════════════════════════════ */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a0000, #7f1d1d, #ef4444);
+  background-size: 400% 400%;
+  animation: gradientBG 6s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.welcome-text {
+  font-size: 4rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #fff, #fca5a5, #fff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: welcomePop 1.5s ease-out, shimmer 3s ease-in-out infinite;
+}
+
+@keyframes welcomePop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+    filter: blur(20px);
+  }
+
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.8s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+  }
+}
+
+/* ════════════════════════════════════════════
+   🔹 PAGE TRANSITIONS
+   ════════════════════════════════════════════ */
+.page-enter {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ════════════════════════════════════════════
+   🔹 SCROLLBAR
+   ════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 🚨 SOS PULSE ANIMATION */
+@keyframes pulseRed {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.pulse-animation {
+  animation: pulseRed 2s infinite;
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+.sos-card {
+  border: 2px solid #ef4444 !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.sos-card::before {
+  content: "SOS";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ef4444;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.7rem;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}

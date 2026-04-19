@@ -1,0 +1,166 @@
+.awareness-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #111827 100%);
+  overflow: hidden;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10%;
+  transition: all 0.5s ease;
+}
+
+.awareness-container.minimal {
+  opacity: 0.8;
+  padding-left: 5%;
+}
+
+.awareness-container.minimal .awareness-content {
+  transform: scale(0.7);
+  opacity: 0.4;
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+/* 🧬 Animated Blood Cells */
+.blood-cells {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cell {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at 30% 30%, #ff4d4d, #990000);
+  border-radius: 50%;
+  opacity: 0.3;
+  filter: blur(2px);
+  animation: moveCell linear infinite;
+  bottom: -100px;
+}
+
+.cell:nth-child(1) { left: 10%; width: 30px; height: 30px; animation-duration: 15s; animation-delay: 0s; }
+.cell:nth-child(2) { left: 25%; width: 50px; height: 50px; animation-duration: 20s; animation-delay: 2s; }
+.cell:nth-child(3) { left: 40%; width: 25px; height: 25px; animation-duration: 12s; animation-delay: 5s; }
+.cell:nth-child(4) { left: 55%; width: 45px; height: 45px; animation-duration: 18s; animation-delay: 1s; }
+.cell:nth-child(5) { left: 70%; width: 35px; height: 35px; animation-duration: 25s; animation-delay: 3s; }
+.cell:nth-child(6) { left: 85%; width: 55px; height: 55px; animation-duration: 16s; animation-delay: 7s; }
+.cell:nth-child(7) { left: 5%; width: 20px; height: 20px; animation-duration: 14s; animation-delay: 4s; }
+.cell:nth-child(8) { left: 95%; width: 40px; height: 40px; animation-duration: 19s; animation-delay: 6s; }
+
+@keyframes moveCell {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-120vh) rotate(360deg); }
+}
+
+/* 📜 Story Content */
+.awareness-content {
+  position: relative;
+  max-width: 500px;
+  color: white;
+  z-index: 1;
+}
+
+.slide {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  transform: translateY(-50%) translateX(0);
+}
+
+.slide-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+.slide-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #fff, #fecaca);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.slide-message {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: #fecaca;
+  font-weight: 300;
+}
+
+.slide-stat {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.stat-highlight {
+  font-weight: 700;
+  color: #fca5a5;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* 🔘 Dots */
+.awareness-dots {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  display: flex;
+  gap: 15px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #ef4444;
+  width: 40px;
+  border-radius: 20px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .awareness-container {
+    padding: 40px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .awareness-content {
+    max-width: 100%;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .slide-title { font-size: 2.2rem; }
+  .awareness-dots { left: 50%; transform: translateX(-50%); }
+}
