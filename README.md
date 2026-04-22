@@ -10,14 +10,11 @@
 
 ---
 
-## ✨ Key Features
-
-### 🎨 Premium 8K Experience
-- **Futuristic Anti-Gravity UI**: A stunning dark-themed interface with high-contrast neon crimson accents and interactive background elements.
-- **Interactive Cursor tracking**: Background glowing "blobs" that respond in real-time to the user's cursor movement across all dashboards.
-- **Liquid Glass Widgets**: 8K-resolution glassmorphic components featuring "Liquid Sweep" animations for a dynamic, high-tech feel.
-- **Cinematic Lighting**: Optimized depth-of-field effects, micro-motions, and 60fps animations for a flagship-grade user experience.
-- **Social Authentication**: Seamless onboarding with Google and GitHub login integration.
+### ✨ Key Features
+- **Modern UI/UX**: Sleek dark-themed interface with high-contrast accents.
+- **Glassmorphism Design**: Premium aesthetic using translucent layers and blur effects.
+- **Micro-Animations**: Smooth transitions and hover effects throughout the platform.
+- **Role-Based Dashboards**: Tailored experiences for Donors, Hospitals, and Blood Banks.
 
 ### 👥 Role-Based Ecosystem
 - **Donors/Recipients**: Personal dashboards to track donation history, find nearby donors, and earn reward points.
