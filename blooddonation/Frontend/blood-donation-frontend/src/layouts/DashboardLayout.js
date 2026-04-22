@@ -6,12 +6,17 @@ import Footer from "../components/Footer";
 function DashboardLayout() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user")) || { username: "Guest" };
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    document.documentElement.setAttribute("data-theme", "dark");
+  }, []);
+
+  const handleMouseMove = (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    setCursorPos({ x, y });
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -19,14 +24,18 @@ function DashboardLayout() {
   };
 
   return (
-    <div className="min-vh-100 d-flex flex-column position-relative">
+    <div 
+      className="min-vh-100 d-flex flex-column position-relative"
+      onMouseMove={handleMouseMove}
+      style={{ '--cursor-x': `${cursorPos.x}%`, '--cursor-y': `${cursorPos.y}%` }}
+    >
       <VeinBackground />
       
       {/* 🔹 TOP GLASS NAVBAR */}
       <nav className="navbar navbar-expand-lg glass-nav sticky-top">
         <div className="container-fluid px-5"> {/* Using container-fluid for max width */}
-          <Link className="navbar-brand fw-bold fs-3 d-flex align-items-center" to="/user" style={{color: 'var(--text-color)'}}>
-            ❤️ BloodLink
+          <Link className="navbar-brand fs-3 d-flex align-items-center" to="/user" style={{textDecoration: 'none'}}>
+            <span className="brand-animated-bg">❤️ BloodLink</span>
           </Link>
           
           <button className="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -49,30 +58,12 @@ function DashboardLayout() {
                 <Link to="/user/profile" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Profile</Link>
               </li>
 
-              {/* 🎨 THEME SWITCHER */}
-              <li className="nav-item ms-3">
-                <div className="btn-group btn-group-sm glass-card p-1">
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'light' ? 'btn-danger' : 'text-muted'}`}
-                    onClick={() => setTheme('light')}
-                  >☀️</button>
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'dark' ? 'btn-danger' : 'text-muted'}`}
-                    onClick={() => setTheme('dark')}
-                  >🌙</button>
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'blood' ? 'btn-danger' : 'text-muted'}`}
-                    onClick={() => setTheme('blood')}
-                  >🩸</button>
-                </div>
-              </li>
-
               <li className="nav-item ms-3">
                 <span className="badge bg-danger rounded-pill px-3 py-2">
                    Donor: {user.username}
                 </span>
               </li>
-              <li className="nav-item ms-3">
+              <li className="nav-item ms-2">
                 <button
                   className="btn btn-outline-danger rounded-pill px-4 btn-sm"
                   onClick={handleLogout}

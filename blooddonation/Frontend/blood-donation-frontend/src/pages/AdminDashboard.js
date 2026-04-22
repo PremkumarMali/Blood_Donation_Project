@@ -100,11 +100,11 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="container mt-4 pb-5">
+    <div className="container mt-4 pb-5 text-white">
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold text-primary">Blood Bank Manager Dashboard</h2>
-        <div className="badge bg-dark p-2">Location ID: #{user.user_id}</div>
+        <h2 className="fw-bold text-white" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: "1px" }}>Blood Bank Manager Dashboard</h2>
+        <div className="badge bg-light text-dark p-2">Location ID: #{user.user_id}</div>
       </div>
 
       {/* 📊 ANALYTICS SECTION */}
@@ -113,8 +113,8 @@ function AdminDashboard() {
       <div className="row mt-5">
         {/* 🩸 STORAGE MANAGEMENT */}
         <div className="col-md-5">
-          <div className="glass-card p-4 h-100 shadow-sm border-0">
-            <h4 className="fw-bold mb-4">Manage Inventory</h4>
+          <div className="glass-card p-4 h-100 shadow-sm border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <h4 className="fw-bold mb-4 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Manage Inventory</h4>
             <form onSubmit={addStock} className="row g-2 mb-4">
               <div className="col-7">
                 <input 
@@ -141,8 +141,8 @@ function AdminDashboard() {
             </form>
 
             <div className="table-responsive" style={{ maxHeight: '300px' }}>
-              <table className="table table-sm table-hover">
-                <thead className="table-light">
+              <table className="table table-sm table-hover table-dark table-borderless bg-transparent">
+                <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
                   <tr>
                     <th>Blood Type</th>
                     <th>Units</th>
@@ -164,11 +164,11 @@ function AdminDashboard() {
 
         {/* 📝 PENDING REQUESTS */}
         <div className="col-md-7">
-          <div className="glass-card p-4 shadow-sm border-0">
-            <h4 className="fw-bold mb-4">Pending Requests</h4>
+          <div className="glass-card p-4 shadow-sm border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <h4 className="fw-bold mb-4 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Pending Requests</h4>
             <div className="table-responsive">
-              <table className="table table-hover align-middle">
-                <thead className="table-dark bg-primary border-0">
+              <table className="table table-hover align-middle table-dark table-borderless bg-transparent">
+                <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
                   <tr>
                     <th>Requester</th>
                     <th>Location</th>
@@ -220,11 +220,11 @@ function AdminDashboard() {
         </div>
       </div>
 
-      <h3 className="mt-5 fw-bold text-secondary">Approved Request History</h3>
-      <div className="glass-card p-4 mt-3 shadow-sm border-0">
+      <h3 className="mt-5 fw-bold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Approved Request History</h3>
+      <div className="glass-card p-4 mt-3 shadow-sm border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
         <div className="table-responsive">
-          <table className="table table-hover align-middle">
-            <thead className="table-light">
+          <table className="table table-hover align-middle table-dark table-borderless bg-transparent">
+            <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
               <tr>
                 <th>User ID</th>
                 <th>Blood Group</th>

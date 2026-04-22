@@ -1,16 +1,22 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
+import VeinBackground from "../components/VeinBackground";
 
 function HospitalLayout() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user")) || { username: "Hospital" };
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    document.documentElement.setAttribute("data-theme", "dark");
+  }, []);
+
+  const handleMouseMove = (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    setCursorPos({ x, y });
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -18,12 +24,17 @@ function HospitalLayout() {
   };
 
   return (
-    <div className="bg-hospital min-vh-100 d-flex flex-column">
+    <div 
+      className="min-vh-100 d-flex flex-column position-relative"
+      onMouseMove={handleMouseMove}
+      style={{ '--cursor-x': `${cursorPos.x}%`, '--cursor-y': `${cursorPos.y}%` }}
+    >
+      <VeinBackground />
       {/* 🔹 TOP GLASS NAVBAR */}
       <nav className="navbar navbar-expand-lg glass-nav">
         <div className="container-fluid px-5">
-          <Link className="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" to="/hospital">
-            <span className="me-2 text-white"></span> Hospital Portal
+          <Link className="navbar-brand fs-3 d-flex align-items-center" to="/hospital" style={{textDecoration: 'none'}}>
+            <span className="brand-animated-bg">❤️ BloodLink Hospital</span>
           </Link>
           
           <button className="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -37,20 +48,9 @@ function HospitalLayout() {
               </li>
               <li className="nav-item">
                 <Link to="/hospital/orders" className="nav-link text-white fw-medium">Blood Requests</Link>
-              </li>
-
-              {/* 🎨 THEME SWITCHER */}
-              <li className="nav-item ms-3">
-                <div className="btn-group btn-group-sm glass-card p-1">
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'light' ? 'btn-info' : 'text-white'}`}
-                    onClick={() => setTheme('light')}
-                  >☀️</button>
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'dark' ? 'btn-info' : 'text-white'}`}
-                    onClick={() => setTheme('dark')}
-                  >🌙</button>
-                </div>
+              </li>              
+              <li className="nav-item">
+                <Link to="/hospital/profile" className="nav-link text-white fw-medium">Profile</Link>
               </li>
 
               <li className="nav-item ms-3">

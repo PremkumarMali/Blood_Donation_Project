@@ -12,11 +12,12 @@
 
 ## ✨ Key Features
 
-### 🎨 Premium User Experience
-- **Glassmorphism Design**: A sleek, modern aesthetic using translucent layers and high-quality blur effects.
-- **Dynamic Backgrounds**: Immersive "Vein Flow" and "Mesh Gradient" animations that make the platform feel alive.
-- **Micro-Animations**: Smooth transitions and hover effects using CSS3 and Intersection Observer API.
-- **Dark/Blood Theme Support**: Customizable interface themes tailored for healthcare environments.
+### 🎨 Premium 8K Experience
+- **Futuristic Anti-Gravity UI**: A stunning dark-themed interface with high-contrast neon crimson accents and interactive background elements.
+- **Interactive Cursor tracking**: Background glowing "blobs" that respond in real-time to the user's cursor movement across all dashboards.
+- **Liquid Glass Widgets**: 8K-resolution glassmorphic components featuring "Liquid Sweep" animations for a dynamic, high-tech feel.
+- **Cinematic Lighting**: Optimized depth-of-field effects, micro-motions, and 60fps animations for a flagship-grade user experience.
+- **Social Authentication**: Seamless onboarding with Google and GitHub login integration.
 
 ### 👥 Role-Based Ecosystem
 - **Donors/Recipients**: Personal dashboards to track donation history, find nearby donors, and earn reward points.

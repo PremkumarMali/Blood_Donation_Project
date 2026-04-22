@@ -78,21 +78,38 @@ const DonateBlood = () => {
   };
 
   return (
-    <div className="container mt-4 animate__animated animate__fadeIn">
+    <div className="container mt-4">
       <ToastContainer position="top-right" autoClose={3000} />
+
+      {/* 🩸 Hero Banner */}
+      <div className="donor-hero-section mb-5" style={{ padding: '2.5rem' }}>
+        <div className="hero-orb hero-orb-1"></div>
+        <div className="hero-orb hero-orb-2"></div>
+        <div className="position-relative" style={{ zIndex: 2 }}>
+          <span className="badge hero-tag mb-3">🩸 GIVE THE GIFT OF LIFE</span>
+          <h1 className="hero-headline" style={{ fontSize: '2.5rem' }}>
+            Donate Blood, <span className="hero-highlight">Save Lives</span>
+          </h1>
+          <p className="hero-subtitle mt-2">
+            Your single donation can save up to 3 lives. Schedule your appointment 
+            at a nearby blood bank or hospital and make a difference today.
+          </p>
+        </div>
+      </div>
       
-      <div className="glass-card p-5 mb-5 shadow-lg border-0 rounded-4">
+      {/* 📝 Booking Form */}
+      <div className="dark-widget mb-5">
         <div className="text-center mb-4">
-          <i className="bi bi-heart-fill text-danger fs-1"></i>
-          <h2 className="fw-bold text-danger mt-2">Donate Blood - Save Lives</h2>
-          <p className="text-muted">Fill in the details to schedule your donation appointment.</p>
+          <div style={{ fontSize: '2.5rem' }}>❤️</div>
+          <h3 className="fw-bold text-white mt-2">Schedule Your Donation</h3>
+          <p style={{ color: 'rgba(255,255,255,0.5)' }}>Fill in the details to book your appointment.</p>
         </div>
         
         <form onSubmit={handleSubmit} className="row g-4">
           <div className="col-md-6">
-            <label className="form-label fw-bold">Blood Type</label>
+            <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Blood Type</label>
             <select
-              className="form-select glass-input"
+              className="form-select dark-widget-input"
               name="bloodType"
               value={formData.bloodType}
               onChange={handleChange}
@@ -111,9 +128,9 @@ const DonateBlood = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label fw-bold">Select Location (Blood Bank / Hospital)</label>
+            <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Select Location</label>
             <select
-              className="form-select glass-input"
+              className="form-select dark-widget-input"
               name="location"
               value={formData.locationId}
               onChange={handleChange}
@@ -129,10 +146,10 @@ const DonateBlood = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label fw-bold">Donation Date</label>
+            <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Donation Date</label>
             <input
               type="date"
-              className="form-control glass-input"
+              className="form-control dark-widget-input"
               name="donationDate"
               value={formData.donationDate}
               onChange={handleChange}
@@ -142,9 +159,9 @@ const DonateBlood = () => {
           </div>
 
           <div className="col-md-6">
-            <label className="form-label fw-bold">Preferred Time Slot</label>
+            <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Preferred Time Slot</label>
             <select
-              className="form-select glass-input"
+              className="form-select dark-widget-input"
               name="timeSlot"
               value={formData.timeSlot}
               onChange={handleChange}
@@ -159,18 +176,19 @@ const DonateBlood = () => {
           </div>
 
           <div className="col-12 text-center mt-4">
-            <button type="submit" className="btn btn-danger btn-lg px-5 shadow rounded-pill">
-              Book Appointment
+            <button type="submit" className="btn btn-danger btn-lg px-5 fw-bold shadow" style={{ borderRadius: '14px' }}>
+              🩸 Book Appointment
             </button>
           </div>
         </form>
       </div>
 
-      <div className="glass-card p-4 shadow-lg border-0 rounded-4">
-        <h4 className="mb-4 fw-bold"><i className="bi bi-clock-history me-2"></i>My Donation Appointments</h4>
+      {/* 📋 Appointments Table */}
+      <div className="dark-widget mb-5">
+        <h4 className="mb-4 fw-bold text-white">📋 My Donation Appointments</h4>
         <div className="table-responsive">
-          <table className="table table-hover align-middle">
-            <thead className="table-danger">
+          <table className="table table-hover align-middle dark-widget-table">
+            <thead>
               <tr>
                 <th>Blood Type</th>
                 <th>Location</th>
@@ -199,7 +217,7 @@ const DonateBlood = () => {
               ))}
               {appointments.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="text-center py-4 text-muted">No appointments found. Start by booking one above!</td>
+                  <td colSpan="5" className="text-center py-4" style={{ color: 'rgba(255,255,255,0.4)' }}>No appointments found. Start by booking one above!</td>
                 </tr>
               )}
             </tbody>

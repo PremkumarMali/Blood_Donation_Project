@@ -1,16 +1,22 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
+import VeinBackground from "../components/VeinBackground";
 
 function AdminLayout() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user")) || { username: "Admin" };
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    document.documentElement.setAttribute("data-theme", "dark");
+  }, []);
+
+  const handleMouseMove = (e) => {
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    setCursorPos({ x, y });
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -18,12 +24,17 @@ function AdminLayout() {
   };
 
   return (
-    <div className="bg-admin min-vh-100">
+    <div 
+      className="min-vh-100 d-flex flex-column position-relative"
+      onMouseMove={handleMouseMove}
+      style={{ '--cursor-x': `${cursorPos.x}%`, '--cursor-y': `${cursorPos.y}%` }}
+    >
+      <VeinBackground />
       {/* 🔹 TOP GLASS NAVBAR */}
       <nav className="navbar navbar-expand-lg glass-nav">
-        <div className="container">
-          <Link className="navbar-brand fw-bold text-white fs-3 d-flex align-items-center" to="/admin">
-            <span className="me-2 text-white"></span> Blood Bank Manager
+        <div className="container-fluid px-5">
+          <Link className="navbar-brand fs-3 fw-bolder text-white d-flex align-items-center" to="/admin" style={{textDecoration: 'none', letterSpacing: '1px'}}>
+            <span className="brand-animated-bg">❤️ BloodLink Admin</span>
           </Link>
           
           <button className="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -37,24 +48,13 @@ function AdminLayout() {
               </li>
               <li className="nav-item mx-2">
                 <Link to="/admin/storage" className="nav-link text-white fw-medium">Blood Storage</Link>
-              </li>
-
-              {/* 🎨 THEME SWITCHER */}
-              <li className="nav-item ms-3">
-                <div className="btn-group btn-group-sm glass-card p-1">
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'light' ? 'btn-warning' : 'text-white'}`}
-                    onClick={() => setTheme('light')}
-                  >☀️</button>
-                  <button 
-                    className={`btn btn-sm rounded-pill ${theme === 'dark' ? 'btn-warning' : 'text-white'}`}
-                    onClick={() => setTheme('dark')}
-                  >🌙</button>
-                </div>
+              </li>              
+              <li className="nav-item mx-2">
+                <Link to="/admin/profile" className="nav-link text-white fw-medium">Profile</Link>
               </li>
 
               <li className="nav-item mx-2">
-                <span className="badge rounded-pill px-3 py-2 ms-3" style={{backgroundColor: '#6A1B9A', border: '1px solid #FB8C00'}}>
+                <span className="badge rounded-pill px-3 py-2 ms-2" style={{backgroundColor: '#6A1B9A', border: '1px solid #FB8C00'}}>
                    Admin: {user.username}
                 </span>
               </li>

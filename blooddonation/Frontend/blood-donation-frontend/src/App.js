@@ -86,6 +86,7 @@ function App() {
           <Route index element={<Orders />} />
           <Route path="storage" element={<Storage />} />
           <Route path="deliveries" element={<Deliveries />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
 
 
@@ -101,6 +102,7 @@ function App() {
           <Route index element={<HospitalDashboard />} />
           <Route path="orders" element={<Orders />} />
           <Route path="deliveries" element={<Deliveries />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
 
 

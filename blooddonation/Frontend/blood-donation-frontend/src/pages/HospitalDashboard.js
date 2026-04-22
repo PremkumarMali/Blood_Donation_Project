@@ -159,9 +159,9 @@ function HospitalDashboard() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 text-white">
 
-      <h2 className="mb-4">Hospital Dashboard</h2>
+      <h2 className="mb-4 fw-bold" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: "1px" }}>Hospital Dashboard</h2>
 
       {/* 🚨 GLOBAL SOS ALERT BANNER */}
       {globalSOS.length > 0 && (
@@ -192,11 +192,11 @@ function HospitalDashboard() {
 
         {/* 🩸 LOCAL STORAGE VIEW */}
         <div className="col-md-4">
-          <div className="glass-card p-4 h-100 shadow-sm border-0">
-            <h4 className="fw-bold mb-3">Hospital Inventory</h4>
+          <div className="glass-card p-4 h-100 shadow-sm border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <h4 className="fw-bold mb-3 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Hospital Inventory</h4>
             <div className="table-responsive" style={{ maxHeight: '250px' }}>
-              <table className="table table-sm table-hover">
-                <thead className="table-light">
+              <table className="table table-sm table-hover table-dark table-borderless bg-transparent">
+                <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
                   <tr>
                     <th>Blood Type</th>
                     <th>Units</th>
@@ -215,8 +215,8 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 ADD PATIENT */}
-      <div className="glass-card p-4 mb-4 shadow">
-        <h4>Add Patient</h4>
+      <div className="glass-card p-4 mb-4 shadow border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
+        <h4 className="fw-bold text-white mb-4" style={{ fontFamily: "'Outfit', sans-serif" }}>Add Patient</h4>
 
         <form onSubmit={addPatient} className="row g-3">
 
@@ -260,8 +260,8 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 RAISE BLOOD REQUEST */}
-      <div className="glass-card p-4 mb-4 shadow">
-        <h4>Raise Blood Request</h4>
+      <div className="glass-card p-4 mb-4 shadow border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
+        <h4 className="fw-bold text-white mb-4" style={{ fontFamily: "'Outfit', sans-serif" }}>Raise Blood Request</h4>
 
         <form onSubmit={raiseRequest} className="row g-3">
 
@@ -311,15 +311,16 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 PATIENT LIST */}
-      <h4>Patients</h4>
-      <table className="table table-bordered mb-4">
-        <thead className="table-dark">
-          <tr>
-            <th>Name</th>
-            <th>Blood</th>
-            <th>Contact</th>
-          </tr>
-        </thead>
+      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Patients</h4>
+      <div className="glass-card p-3 border-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <table className="table table-dark table-hover table-borderless mb-0 bg-transparent">
+          <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+            <tr>
+              <th className="text-white-50">Name</th>
+              <th className="text-white-50">Blood</th>
+              <th className="text-white-50">Contact</th>
+            </tr>
+          </thead>
 
         <tbody>
           {patients.map((p) => (
@@ -330,21 +331,23 @@ function HospitalDashboard() {
             </tr>
           ))}
         </tbody>
-      </table>
+        </table>
+      </div>
 
       {/* 🔥 DONATION APPOINTMENTS */}
-      <h4>Donation Appointments</h4>
-      <table className="table table-bordered mb-4">
-        <thead className="table-info">
-          <tr>
-            <th>Donor Name</th>
-            <th>Blood Type</th>
-            <th>Date</th>
-            <th>Slot</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Donation Appointments</h4>
+      <div className="glass-card p-3 border-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <table className="table table-dark table-hover table-borderless mb-0 bg-transparent">
+          <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+            <tr>
+              <th className="text-white-50">Donor Name</th>
+              <th className="text-white-50">Blood Type</th>
+              <th className="text-white-50">Date</th>
+              <th className="text-white-50">Slot</th>
+              <th className="text-white-50">Status</th>
+              <th className="text-white-50">Actions</th>
+            </tr>
+          </thead>
 
         <tbody>
           {appointments.map((a) => (
@@ -387,19 +390,21 @@ function HospitalDashboard() {
               <td colSpan="6" className="text-center py-3">No donation appointments found.</td>
             </tr>
           )}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
 
       {/* 🔥 REQUEST LIST */}
-      <h4>Blood Requests</h4>
-      <table className="table table-bordered mb-4">
-        <thead className="table-dark">
-          <tr>
-            <th>Blood</th>
-            <th>Units</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Blood Requests</h4>
+      <div className="glass-card p-3 border-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
+        <table className="table table-dark table-hover table-borderless mb-0 bg-transparent">
+          <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+            <tr>
+              <th className="text-white-50">Blood</th>
+              <th className="text-white-50">Units</th>
+              <th className="text-white-50">Status</th>
+            </tr>
+          </thead>
 
         <tbody>
           {orders.map((o) => (
@@ -409,11 +414,12 @@ function HospitalDashboard() {
               <td>{o.status}</td>
             </tr>
           ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
 
       {/* 🌍 GOOGLE MAP */}
-      <h4>Nearby Blood Banks & Camps</h4>
+      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Nearby Blood Banks & Camps</h4>
       <iframe
         src="https://www.google.com/maps?q=blood+bank+near+me&output=embed"
         width="100%"

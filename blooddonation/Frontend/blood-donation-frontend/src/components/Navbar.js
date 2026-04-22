@@ -6,8 +6,8 @@ function Navbar() {
 
       <div className="container">
 
-        <Link className="navbar-brand" to="/">
-          Blood Donation System
+        <Link className="navbar-brand" to="/" style={{textDecoration: 'none'}}>
+          <span className="brand-animated-bg fs-5">❤️ BloodLink</span>
         </Link>
 
         <div>

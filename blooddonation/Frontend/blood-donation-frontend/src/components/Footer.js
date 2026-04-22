@@ -8,7 +8,9 @@ function Footer() {
         <div className="row g-4">
           {/* Brand & Mission */}
           <div className="col-lg-4 col-md-6">
-            <h4 className="fw-bold mb-3" style={{color: '#ef4444'}}>❤️ BloodLink</h4>
+            <h4 className="mb-4">
+              <span className="brand-animated-bg fs-4">❤️ BloodLink</span>
+            </h4>
             <p className="text-muted pe-lg-4">
               Building a bridge between life-savers and those in need. Our platform leverages 
               modern technology to make blood donation faster, easier, and more transparent.

@@ -86,7 +86,7 @@ function Register() {
           <div className="auth-glow-blob" style={{ bottom: '20%', left: '5%', animationDelay: '-12s' }} />
 
           {/* 🚀 Hero Section */}
-          <div className="container-fluid min-vh-100 d-flex flex-column align-items-center justify-content-center py-5">
+          <div className="container-fluid min-vh-100 position-relative overflow-hidden d-flex flex-column align-items-center justify-content-center py-5">
             <DonationAwareness />
 
             <div className="glass-card auth-card page-enter p-5">
