@@ -12,6 +12,8 @@ const DonateBlood = () => {
     locationName: "",
     donationDate: "",
     timeSlot: "",
+    collectionType: "HOSPITAL",
+    collectionAddress: "",
   });
   const [appointments, setAppointments] = useState([]);
 
@@ -70,6 +72,8 @@ const DonateBlood = () => {
         locationName: "",
         donationDate: "",
         timeSlot: "",
+        collectionType: "HOSPITAL",
+        collectionAddress: "",
       });
       fetchAppointments(user.user_id);
     } catch (err) {
@@ -175,6 +179,35 @@ const DonateBlood = () => {
             </select>
           </div>
 
+          <div className="col-md-6">
+            <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Collection Type</label>
+            <select
+              className="form-select dark-widget-input"
+              name="collectionType"
+              value={formData.collectionType}
+              onChange={handleChange}
+              required
+            >
+              <option value="HOSPITAL">Visit Hospital / Blood Bank</option>
+              <option value="HOME">Home Collection (Collect from my location)</option>
+            </select>
+          </div>
+
+          {formData.collectionType === "HOME" && (
+            <div className="col-12">
+              <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Collection Address</label>
+              <textarea
+                className="form-control dark-widget-input"
+                name="collectionAddress"
+                value={formData.collectionAddress}
+                onChange={handleChange}
+                placeholder="Enter your full address for blood collection"
+                required={formData.collectionType === "HOME"}
+                rows="2"
+              ></textarea>
+            </div>
+          )}
+
           <div className="col-12 text-center mt-4">
             <button type="submit" className="btn btn-danger btn-lg px-5 fw-bold shadow" style={{ borderRadius: '14px' }}>
               🩸 Book Appointment
@@ -194,6 +227,7 @@ const DonateBlood = () => {
                 <th>Location</th>
                 <th>Date</th>
                 <th>Time Slot</th>
+                <th>Type</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -204,6 +238,11 @@ const DonateBlood = () => {
                   <td>{app.locationName}</td>
                   <td>{app.donationDate}</td>
                   <td>{app.timeSlot}</td>
+                  <td>
+                    <span className={`badge ${app.collectionType === 'HOME' ? 'bg-info' : 'bg-secondary'}`}>
+                      {app.collectionType === 'HOME' ? '🏠 Home' : '🏥 Hospital'}
+                    </span>
+                  </td>
                   <td>
                     <span className={`badge rounded-pill ${
                       app.status === 'PENDING' ? 'bg-warning text-dark' : 
@@ -217,7 +256,7 @@ const DonateBlood = () => {
               ))}
               {appointments.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="text-center py-4" style={{ color: 'rgba(255,255,255,0.4)' }}>No appointments found. Start by booking one above!</td>
+                  <td colSpan="6" className="text-center py-4" style={{ color: 'rgba(255,255,255,0.4)' }}>No appointments found. Start by booking one above!</td>
                 </tr>
               )}
             </tbody>

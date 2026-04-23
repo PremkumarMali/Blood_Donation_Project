@@ -19,6 +19,8 @@ public class DonationAppointment {
     private LocalDate donationDate;
     private String timeSlot;
     private String status; // PENDING, APPROVED, COMPLETED, CANCELLED
+    private String collectionType; // HOME or HOSPITAL
+    private String collectionAddress; // Address if collectionType is HOME
 
     public DonationAppointment() {
         this.status = "PENDING";
@@ -94,5 +96,21 @@ public class DonationAppointment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCollectionType() {
+        return collectionType;
+    }
+
+    public void setCollectionType(String collectionType) {
+        this.collectionType = collectionType;
+    }
+
+    public String getCollectionAddress() {
+        return collectionAddress;
+    }
+
+    public void setCollectionAddress(String collectionAddress) {
+        this.collectionAddress = collectionAddress;
     }
 }

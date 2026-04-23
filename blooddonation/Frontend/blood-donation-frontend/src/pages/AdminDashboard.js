@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InventoryAnalytics from "../components/InventoryAnalytics";
+import NotificationSystem from "../components/NotificationSystem";
 
 function AdminDashboard() {
 
@@ -104,7 +105,10 @@ function AdminDashboard() {
 
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="fw-bold text-white" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: "1px" }}>Blood Bank Manager Dashboard</h2>
-        <div className="badge bg-light text-dark p-2">Location ID: #{user.user_id}</div>
+        <div className="d-flex align-items-center gap-3">
+          <NotificationSystem isAdmin={true} />
+          <div className="badge bg-light text-dark p-2">Location ID: #{user.user_id}</div>
+        </div>
       </div>
 
       {/* 📊 ANALYTICS SECTION */}

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InventoryAnalytics from "../components/InventoryAnalytics";
+import NotificationSystem from "../components/NotificationSystem";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function HospitalDashboard() {
 
@@ -27,6 +30,7 @@ function HospitalDashboard() {
     fetchOrders();
     fetchAppointments();
     fetchGlobalSOS();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchGlobalSOS = async () => {
@@ -158,10 +162,45 @@ function HospitalDashboard() {
     }
   };
 
+  // 🔥 Send Emergency SOS Notification
+  const handleEmergencySOS = async () => {
+    if (!window.confirm("Are you sure you want to broadcast a Regional Emergency SOS? This will alert all admins and users.")) return;
+
+    const data = {
+      type: "EMERGENCY",
+      message: `CRITICAL: ${user.hospitalName || user.username} Hospital needs urgent blood supply!`,
+      senderName: user.hospitalName || user.username,
+      senderContact: user.contact || "No contact provided",
+      senderLocation: user.location || user.address || "Hospital Location",
+      isRead: false
+    };
+
+    try {
+      await axios.post("http://localhost:8080/api/notifications/send", data);
+      toast.error("Hospital SOS Broadcasted successfully!");
+    } catch (err) {
+      toast.error("Failed to send SOS alert.");
+    }
+  };
+
   return (
     <div className="container mt-4 text-white">
+      <ToastContainer position="top-right" autoClose={3000} />
 
-      <h2 className="mb-4 fw-bold" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: "1px" }}>Hospital Dashboard</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="fw-bold" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: "1px" }}>Hospital Dashboard</h2>
+        <NotificationSystem isAdmin={false} />
+      </div>
+
+      <div className="mb-4">
+        <button 
+          className="btn btn-danger btn-lg fw-bold pulse-animation shadow-lg w-100" 
+          style={{ borderRadius: '15px', padding: '15px', border: '2px solid rgba(255,255,255,0.2)' }}
+          onClick={handleEmergencySOS}
+        >
+          🚨 BROADCAST REGIONAL SOS ALERT
+        </button>
+      </div>
 
       {/* 🚨 GLOBAL SOS ALERT BANNER */}
       {globalSOS.length > 0 && (
@@ -344,6 +383,7 @@ function HospitalDashboard() {
               <th className="text-white-50">Blood Type</th>
               <th className="text-white-50">Date</th>
               <th className="text-white-50">Slot</th>
+              <th className="text-white-50">Type</th>
               <th className="text-white-50">Status</th>
               <th className="text-white-50">Actions</th>
             </tr>
@@ -356,6 +396,11 @@ function HospitalDashboard() {
               <td>{a.bloodType}</td>
               <td>{a.donationDate}</td>
               <td>{a.timeSlot}</td>
+              <td>
+                <span className={`badge ${a.collectionType === 'HOME' ? 'bg-info' : 'bg-secondary'}`}>
+                  {a.collectionType === 'HOME' ? '🏠 Home' : '🏥 Hospital'}
+                </span>
+              </td>
               <td>{a.status}</td>
               <td>
                 {a.status === "PENDING" && (

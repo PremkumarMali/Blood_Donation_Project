@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ImpactCard from "../components/ImpactCard";
 import BadgeSystem from "../components/BadgeSystem";
+import NotificationSystem from "../components/NotificationSystem";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const donationFacts = [
   "One donation can save up to 3 lives.",
@@ -119,8 +122,35 @@ function Dashboard() {
     setFormData({ bloodGroup: "", units: "", locationId: "", locationName: "" });
   };
 
+  // 🔥 Send Emergency SOS Notification
+  const handleEmergencySOS = async () => {
+    if (!window.confirm("Are you sure you want to broadcast an Emergency SOS? This will alert all admins and users.")) return;
+
+    const data = {
+      type: "EMERGENCY",
+      message: `URGENT: ${user.username} needs blood help!`,
+      senderName: user.username,
+      senderContact: user.contact || "No contact provided",
+      senderLocation: user.location || "Unknown Location",
+      isRead: false
+    };
+
+    try {
+      await axios.post("http://localhost:8080/api/notifications/send", data);
+      toast.error("Emergency SOS Broadcasted successfully!");
+    } catch (err) {
+      toast.error("Failed to send SOS alert.");
+    }
+  };
+
   return (
     <div className="position-relative">
+      <ToastContainer position="top-right" autoClose={3000} />
+      
+      {/* 🔔 Notifications */}
+      <div className="d-flex justify-content-end mb-3">
+        <NotificationSystem isAdmin={false} />
+      </div>
       {/* ═══════════════════════════════════════════
           🎬 HERO SECTION — WHY DONATE BLOOD
          ═══════════════════════════════════════════ */}
@@ -164,6 +194,16 @@ function Dashboard() {
                 <span className="hero-stat-number">100%</span>
                 <span className="hero-stat-label">Safe & Sterile</span>
               </div>
+            </div>
+
+            <div className="d-flex gap-3 mt-5 flex-wrap">
+              <button 
+                className="btn btn-danger btn-lg fw-bold pulse-animation shadow-lg" 
+                style={{ borderRadius: '15px', padding: '15px 30px', border: '2px solid rgba(255,255,255,0.2)' }}
+                onClick={handleEmergencySOS}
+              >
+                🚨 BROADCAST EMERGENCY SOS
+              </button>
             </div>
           </div>
 
