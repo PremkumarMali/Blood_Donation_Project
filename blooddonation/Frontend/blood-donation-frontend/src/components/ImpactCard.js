@@ -11,18 +11,18 @@ const ImpactCard = ({ orders }) => {
            style={{ width: '200px', height: '200px', background: 'rgba(239, 68, 68, 0.15)', filter: 'blur(50px)', borderRadius: '50%', zIndex: 0 }}></div>
       
       <div className="position-relative" style={{ zIndex: 1 }}>
-        <div className="display-4 fw-bold mb-1" style={{ color: '#ef4444' }}>{livesSaved}</div>
-        <h5 className="fw-bold mb-3 text-white">Lives Impacted</h5>
+        <div className="display-4 fw-bold mb-1" style={{ color: 'var(--accent-color)' }}>{livesSaved}</div>
+        <h5 className="text-premium mb-3">Lives Impacted</h5>
         
-        <div className="progress mx-auto mb-3" style={{ height: '10px', width: '80%', background: 'rgba(255,255,255,0.08)', borderRadius: '10px' }}>
+        <div className="progress mx-auto mb-3" style={{ height: '10px', width: '80%', background: 'rgba(45, 36, 30, 0.05)', borderRadius: '10px' }}>
           <div 
             className="progress-bar" 
             role="progressbar" 
-            style={{ width: `${Math.min(approvedCount * 20, 100)}%`, background: 'linear-gradient(90deg, #ef4444, #f97316)', borderRadius: '10px' }}
+            style={{ width: `${Math.min(approvedCount * 20, 100)}%`, background: 'var(--accent-color)', borderRadius: '10px' }}
           ></div>
         </div>
         
-        <p className="small mb-0" style={{ color: 'rgba(255,255,255,0.5)' }}>
+        <p className="text-stylish small mb-0">
           Based on your {approvedCount} successful donations. Every drop counts!
         </p>
         

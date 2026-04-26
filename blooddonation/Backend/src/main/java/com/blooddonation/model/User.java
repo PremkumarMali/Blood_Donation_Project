@@ -44,6 +44,15 @@ public class User {
     @Column(name = "license")
     private String license;
 
+    @Column(name = "blood_group")
+    private String bloodGroup;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "badges")
     private String badges = "Newcomer";
 
@@ -138,5 +147,29 @@ public class User {
 
     public void setLicense(String license) {
         this.license = license;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

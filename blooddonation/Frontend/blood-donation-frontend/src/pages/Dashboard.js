@@ -239,8 +239,8 @@ function Dashboard() {
              style={{ borderLeft: '4px solid #dc2626' }}>
           <div className="me-3 fs-3">🚨</div>
           <div className="flex-grow-1">
-            <h5 className="fw-bold mb-1 text-white">EMERGENCY SOS: Blood Needed Urgently!</h5>
-            <div className="small text-white opacity-75">
+            <h5 className="text-premium mb-1">EMERGENCY SOS: Blood Needed Urgently!</h5>
+            <div className="text-stylish small">
               {emergency.filter(e => e.bloodGroup === user.bloodGroup).length > 0 
                 ? `Immediate need for your blood group (${user.bloodGroup}) at nearby hospitals!` 
                 : `${emergency.length} hospitals are requesting urgent blood supply. Can you help?`}
@@ -253,7 +253,7 @@ function Dashboard() {
               ))}
             </div>
           </div>
-          <button className="btn btn-light btn-sm fw-bold px-3 ms-3" onClick={() => window.scrollTo(0, document.body.scrollHeight)}>
+          <button className="btn btn-primary btn-sm fw-bold px-3 ms-3" onClick={() => window.scrollTo(0, document.body.scrollHeight)}>
             HELP NOW
           </button>
         </div>
@@ -267,7 +267,7 @@ function Dashboard() {
 
       {/* 🔹 Request Blood Widget */}
       <div className="dark-widget mb-5">
-        <h4 className="fw-bold mb-3 text-white">🩸 Request Blood</h4>
+        <h3 className="text-premium mb-4">🩸 Request Blood</h3>
 
         <form onSubmit={handleRequest} className="row g-3">
           <div className="col-md-3">
@@ -321,7 +321,7 @@ function Dashboard() {
         {/* 🔹 Your Requests */}
         <div className="col-md-12 mb-5">
           <div className="dark-widget">
-            <h4 className="fw-bold mb-4 text-white">📋 Your Requests</h4>
+            <h3 className="text-premium mb-4">📋 Your Requests</h3>
             <div className="table-responsive">
               <table className="table table-hover align-middle dark-widget-table">
                 <thead>
@@ -337,7 +337,7 @@ function Dashboard() {
                   ) : (
                     orders.map((o) => (
                       <tr key={o.orderId}>
-                        <td><span className="badge bg-danger bg-opacity-10 text-danger px-3">{o.bloodGroup}</span></td>
+                        <td><span className="badge bg-danger text-white px-3">{o.bloodGroup}</span></td>
                         <td>{o.units}</td>
                         <td>
                           <span className={`badge rounded-pill px-3 ${o.status === 'APPROVED' ? 'bg-success' : 'bg-warning text-dark'}`}>
@@ -356,7 +356,7 @@ function Dashboard() {
         {/* 🚨 Emergency Requests */}
         <div className="col-md-12 mb-5">
           <div className="dark-widget" style={{ borderLeft: '3px solid #ef4444' }}>
-            <h4 className="fw-bold mb-4" style={{ color: '#f87171' }}>🚨 Emergency Blood Requests</h4>
+            <h3 className="text-premium mb-4">🚨 Emergency Blood Requests</h3>
             <div className="table-responsive">
               <table className="table table-hover align-middle dark-widget-table">
                 <thead>
@@ -387,7 +387,7 @@ function Dashboard() {
         {/* 🌍 Google Map */}
         <div className="col-md-12">
           <div className="dark-widget">
-            <h4 className="fw-bold mb-4 text-white">📍 Nearby Blood Camps & Banks</h4>
+            <h3 className="text-premium mb-4">📍 Nearby Blood Camps & Banks</h3>
             <div className="rounded-3 overflow-hidden">
               <iframe
                 src="https://www.google.com/maps?q=blood+donation+camp+near+me&output=embed"

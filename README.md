@@ -10,6 +10,25 @@
 
 ---
 
+## 📸 Screenshots
+
+### 🎨 Authentication Experience
+| Login Page | Register Page |
+| :---: | :---: |
+| ![Login Page](screenshots/login.png) | ![Register Page](screenshots/register.png) |
+
+### 📊 Dashboards & Profiles
+| Donor Dashboard | Hospital Inventory |
+| :---: | :---: |
+| ![Donor Dashboard](screenshots/donor_dashboard.png) | ![Hospital Dashboard](screenshots/hospital_dashboard.png) |
+
+### 👤 Profile Management
+| User Profile |
+| :---: |
+| ![Profile Page](screenshots/profile.png) |
+
+---
+
 ## ✨ Features
 
 ### 🏠 Home Blood Collection

@@ -35,15 +35,19 @@ function Profile() {
         setIsEditing(false);
         alert("Profile updated successfully!");
       })
-      .catch(err => alert("Failed to update profile."));
+      .catch(err => {
+        console.error("Update Error:", err);
+        const msg = err.response?.data?.message || err.response?.data || "Failed to update profile.";
+        alert(typeof msg === 'object' ? JSON.stringify(msg) : msg);
+      });
   };
 
   return (
     <div className="py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold mb-0 text-white">My Profile</h2>
+        <h2 className="text-premium mb-0">My Profile</h2>
         <button 
-          className="btn btn-outline-light rounded-pill px-4 btn-sm"
+          className="btn btn-primary rounded-pill px-4 btn-sm"
           onClick={() => setIsEditing(!isEditing)}
         >
           {isEditing ? "Cancel" : "Edit Profile"}
@@ -115,7 +119,7 @@ function Profile() {
         </div>
       </div>
 
-      <h3 className="fw-bold mb-4 text-white">My Blood Requests</h3>
+      <h3 className="text-premium mb-4">My Blood Requests</h3>
 
       <div className="glass-card p-4 border-0">
         <div className="table-responsive">

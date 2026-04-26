@@ -104,14 +104,14 @@ const DonateBlood = () => {
       {/* 📝 Booking Form */}
       <div className="dark-widget mb-5">
         <div className="text-center mb-4">
-          <div style={{ fontSize: '2.5rem' }}>❤️</div>
-          <h3 className="fw-bold text-white mt-2">Schedule Your Donation</h3>
-          <p style={{ color: 'rgba(255,255,255,0.5)' }}>Fill in the details to book your appointment.</p>
+          <div style={{ fontSize: '3rem' }}>❤️</div>
+          <h2 className="text-premium mt-2">Schedule Your Donation</h2>
+          <p className="text-muted">Fill in the details to book your appointment.</p>
         </div>
         
         <form onSubmit={handleSubmit} className="row g-4">
           <div className="col-md-6">
-            <label className="form-label fw-bold" style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Blood Type</label>
+            <label className="form-label text-premium fw-bold small">Blood Type</label>
             <select
               className="form-select dark-widget-input"
               name="bloodType"
@@ -217,10 +217,10 @@ const DonateBlood = () => {
       </div>
 
       {/* 📋 Appointments Table */}
-      <div className="dark-widget mb-5">
-        <h4 className="mb-4 fw-bold text-white">📋 My Donation Appointments</h4>
+      <div className="glass-card mb-5">
+        <h3 className="mb-4 text-premium">📋 My Donation Appointments</h3>
         <div className="table-responsive">
-          <table className="table table-hover align-middle dark-widget-table">
+          <table className="table table-hover align-middle">
             <thead>
               <tr>
                 <th>Blood Type</th>
@@ -256,7 +256,7 @@ const DonateBlood = () => {
               ))}
               {appointments.length === 0 && (
                 <tr>
-                  <td colSpan="6" className="text-center py-4" style={{ color: 'rgba(255,255,255,0.4)' }}>No appointments found. Start by booking one above!</td>
+                  <td colSpan="6" className="text-center py-4 text-muted">No appointments found. Start by booking one above!</td>
                 </tr>
               )}
             </tbody>

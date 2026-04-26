@@ -9,7 +9,7 @@ function DashboardLayout() {
   const [cursorPos, setCursorPos] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
+    // Theme is now globally managed by index.css (Beige Premium)
   }, []);
 
   const handleMouseMove = (e) => {
@@ -31,47 +31,26 @@ function DashboardLayout() {
     >
       <VeinBackground />
       
-      {/* 🔹 TOP GLASS NAVBAR */}
-      <nav className="navbar navbar-expand-lg glass-nav sticky-top">
-        <div className="container-fluid px-5"> {/* Using container-fluid for max width */}
-          <Link className="navbar-brand fs-3 d-flex align-items-center" to="/user" style={{textDecoration: 'none'}}>
-            <span className="brand-animated-bg">❤️ BloodLink</span>
+      {/* 🔹 TOP DASHBOARD NAVBAR */}
+      <nav className="dashboard-navbar">
+        <div className="container-fluid px-5 d-flex justify-content-between align-items-center">
+          <Link className="navbar-brand d-flex align-items-center" to="/user" style={{textDecoration: 'none'}}>
+            <span className="brand-animated-bg fs-4">❤️ BloodLink</span>
           </Link>
           
-          <button className="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto align-items-center">
-              <li className="nav-item">
-                <Link to="/user" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Dashboard</Link>
-              </li>
-              
-              <li className="nav-item">
-                <Link to="/user/find-donor" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Find Donor</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/user/donate-blood" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Donate Blood</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/user/profile" className="nav-link fw-medium" style={{color: 'var(--text-color)'}}>Profile</Link>
-              </li>
-
-              <li className="nav-item ms-3">
-                <span className="badge bg-danger rounded-pill px-3 py-2">
-                   Donor: {user.username}
-                </span>
-              </li>
-              <li className="nav-item ms-2">
-                <button
-                  className="btn btn-outline-danger rounded-pill px-4 btn-sm"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
+          <div className="d-flex align-items-center gap-4">
+            <Link to="/user" className="nav-link">Dashboard</Link>
+            <Link to="/user/find-donor" className="nav-link">Find Donor</Link>
+            <Link to="/user/donate-blood" className="nav-link">Donate Blood</Link>
+            <Link to="/user/profile" className="nav-link">Profile</Link>
+            
+            <span className="badge bg-danger text-white px-3 py-2 rounded-pill shadow-sm">
+               Donor: {user.username}
+            </span>
+            
+            <button className="btn btn-primary btn-sm" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         </div>
       </nav>

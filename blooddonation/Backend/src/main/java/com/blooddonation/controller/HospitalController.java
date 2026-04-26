@@ -17,7 +17,6 @@ import com.blooddonation.service.HospitalService;
 
 @RestController
 @RequestMapping("/api/hospitals")
-@CrossOrigin(origins = "*")
 public class HospitalController {
 
     @Autowired

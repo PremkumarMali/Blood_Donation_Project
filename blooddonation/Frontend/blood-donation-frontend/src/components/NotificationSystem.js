@@ -51,51 +51,70 @@ const NotificationSystem = ({ isAdmin }) => {
   return (
     <div className="notification-system" style={{ position: 'relative' }}>
       <button 
-        className="btn btn-dark position-relative" 
+        className="btn d-flex align-items-center justify-content-center position-relative" 
         onClick={() => setShowPanel(!showPanel)}
-        style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '10px 15px' }}
+        style={{ 
+          background: '#FFFFFF', 
+          border: '1px solid rgba(45, 36, 30, 0.1)', 
+          borderRadius: '12px', 
+          width: '45px', 
+          height: '45px',
+          boxShadow: '0 4px 10px rgba(0,0,0,0.03)'
+        }}
       >
-        🔔 {unreadCount > 0 && <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{unreadCount}</span>}
+        <span style={{ fontSize: '1.2rem' }}>🔔</span>
+        {unreadCount > 0 && (
+          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.65rem' }}>
+            {unreadCount}
+          </span>
+        )}
       </button>
 
       {showPanel && (
-        <div className="notification-panel dark-widget" style={{ 
+        <div className="notification-panel" style={{ 
           position: 'absolute', 
           right: 0, 
           top: '60px', 
-          width: '350px', 
+          width: '380px', 
           zIndex: 1000, 
           maxHeight: '500px', 
           overflowY: 'auto',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
-          border: '1px solid rgba(255,255,255,0.1)'
+          background: '#FFFFFF',
+          borderRadius: '20px',
+          padding: '24px',
+          boxShadow: '0 20px 50px rgba(45, 36, 30, 0.15)',
+          border: '1px solid rgba(45, 36, 30, 0.08)'
         }}>
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h5 className="mb-0 text-white fw-bold">Notifications</h5>
-            <button className="btn btn-sm btn-link text-white-50" onClick={() => setShowPanel(false)}>Close</button>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h5 className="mb-0 text-premium fw-bold">Notifications</h5>
+            <button className="btn btn-sm text-muted p-0" onClick={() => setShowPanel(false)}>Close</button>
           </div>
 
           {notifications.length === 0 ? (
-            <p className="text-center text-white-50 py-4">No notifications yet.</p>
+            <div className="text-center py-5">
+               <div className="fs-1 mb-2 opacity-20">📭</div>
+               <p className="text-muted mb-0">No notifications yet.</p>
+            </div>
           ) : (
             notifications.map(n => (
-              <div key={n.id} className={`notification-item p-3 mb-2 rounded ${n.read ? 'opacity-50' : 'bg-white bg-opacity-10 border-start border-danger border-4'}`} style={{ transition: '0.3s' }}>
-                <div className="d-flex justify-content-between">
-                  <span className={`badge ${n.type === 'EMERGENCY' ? 'bg-danger' : 'bg-info'} mb-2`}>{n.type}</span>
-                  <small className="text-white-50">{new Date(n.timestamp).toLocaleTimeString()}</small>
+              <div key={n.id} className={`p-3 mb-3 rounded-4 ${n.read ? 'opacity-50' : 'border-start border-danger border-4 shadow-sm'}`} 
+                   style={{ background: n.read ? 'transparent' : 'rgba(230, 57, 70, 0.02)', transition: '0.3s' }}>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span className={`badge ${n.type === 'EMERGENCY' ? 'bg-danger text-white' : 'bg-info text-dark'} rounded-pill`} style={{ fontSize: '0.7rem' }}>{n.type}</span>
+                  <small className="text-muted">{new Date(n.timestamp).toLocaleTimeString()}</small>
                 </div>
-                <p className="text-white mb-1 fw-bold">{n.message}</p>
+                <p className="text-premium mb-2 fw-bold" style={{ fontSize: '0.95rem', lineHeight: '1.4' }}>{n.message}</p>
                 
                 {n.type === 'EMERGENCY' && (
-                  <div className="emergency-details mt-2 p-2 rounded bg-black bg-opacity-25" style={{ fontSize: '0.85rem' }}>
-                    <div className="text-white-50">📍 Location: <span className="text-white">{n.senderLocation}</span></div>
-                    <div className="text-white-50">👤 Name: <span className="text-white">{n.senderName}</span></div>
-                    <div className="text-white-50">📞 Contact: <span className="text-white">{n.senderContact}</span></div>
+                  <div className="emergency-details mt-2 p-2 rounded-3" style={{ fontSize: '0.8rem', background: 'rgba(230, 57, 70, 0.05)', border: '1px solid rgba(230, 57, 70, 0.1)' }}>
+                    <div className="text-muted mb-1">📍 Location: <span className="text-premium fw-bold">{n.senderLocation}</span></div>
+                    <div className="text-muted mb-1">👤 Name: <span className="text-premium fw-bold">{n.senderName}</span></div>
+                    <div className="text-muted">📞 Contact: <span className="text-premium fw-bold">{n.senderContact}</span></div>
                   </div>
                 )}
 
                 {!n.read && (
-                  <button className="btn btn-sm btn-outline-light mt-2" onClick={() => markAsRead(n.id)}>Mark as Read</button>
+                  <button className="btn btn-sm btn-primary w-100 mt-3" style={{ fontSize: '0.8rem' }} onClick={() => markAsRead(n.id)}>Mark as Read</button>
                 )}
               </div>
             ))

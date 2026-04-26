@@ -14,8 +14,8 @@ const WelcomeScreen = ({ username, onComplete }) => {
 
   return (
     <div className={`welcome-overlay ${fadeOut ? 'fade-out' : ''}`}>
-      <h1 className="welcome-text">Welcome, {username}!</h1>
-      <p className="text-muted mt-3 h4">Preparing your dashboard...</p>
+      <h1 className="welcome-text">Welcome, {username}</h1>
+      <p className="welcome-subtext">Preparing your personal dashboard...</p>
     </div>
   );
 };

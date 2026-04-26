@@ -12,17 +12,17 @@ function Sidebar() {
 
 
   return (
-    <div className="bg-dark text-white p-3 vh-100" style={{ width: "220px" }}>
+    <div className="glass-card vh-100" style={{ width: "260px", borderRadius: '0', borderLeft: 'none', borderTop: 'none', borderBottom: 'none', padding: '2rem 1.5rem' }}>
+      <h4 className="text-center mb-4"><span className="brand-animated-bg">❤️ BloodLink</span></h4>
 
-      <h4 className="text-center">Blood System</h4>
+      <div className="text-center mb-4">
+        <p className="text-muted small text-uppercase fw-bold mb-1">Welcome back,</p>
+        <h5 className="fw-bold">{user?.username}</h5>
+      </div>
 
-      <p className="text-center">
-        Welcome {user?.username}
-      </p>
-
-      <ul className="nav flex-column">
+      <ul className="nav flex-column gap-2">
         <li className="nav-item">
-          <Link className="nav-link text-white" to={isAdmin ? "/admin" : (user?.role === "HOSPITAL" ? "/hospital" : "/user")}>
+          <Link className="nav-link rounded-3" to={isAdmin ? "/admin" : (user?.role === "HOSPITAL" ? "/hospital" : "/user")}>
             🏠 Dashboard
           </Link>
         </li>
@@ -30,10 +30,10 @@ function Sidebar() {
         {isAdmin && (
           <>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/admin/storage">📦 Storage</Link>
+              <Link className="nav-link rounded-3" to="/admin/storage">📦 Storage</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/admin/deliveries">🚚 Deliveries</Link>
+              <Link className="nav-link rounded-3" to="/admin/deliveries">🚚 Deliveries</Link>
             </li>
           </>
         )}
@@ -41,10 +41,10 @@ function Sidebar() {
         {user?.role === "HOSPITAL" && (
           <>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/hospital/orders">🩸 Blood Requests</Link>
+              <Link className="nav-link rounded-3" to="/hospital/orders">🩸 Blood Requests</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/hospital/deliveries">🚚 My Deliveries</Link>
+              <Link className="nav-link rounded-3" to="/hospital/deliveries">🚚 My Deliveries</Link>
             </li>
           </>
         )}
@@ -52,29 +52,28 @@ function Sidebar() {
         {user?.role === "USER" && (
           <>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/user/find-donor">🔍 Find Donor</Link>
+              <Link className="nav-link rounded-3" to="/user/find-donor">🔍 Find Donor</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" to="/user/donors">🤝 Donors</Link>
+              <Link className="nav-link rounded-3" to="/user/donors">🤝 Donors</Link>
             </li>
           </>
         )}
 
-        <li className="nav-item mt-3">
-          <Link className="nav-link text-white" to={isAdmin ? "/admin/profile" : (user?.role === "HOSPITAL" ? "/hospital/profile" : "/user/profile")}>
+        <li className="nav-item mt-2">
+          <Link className="nav-link rounded-3" to={isAdmin ? "/admin/profile" : (user?.role === "HOSPITAL" ? "/hospital/profile" : "/user/profile")}>
             👤 Profile
           </Link>
         </li>
       </ul>
 
-
       <button
-        className="btn btn-danger mt-4 w-100"
+        className="btn btn-outline-danger mt-auto w-100 rounded-pill fw-bold"
         onClick={handleLogout}
+        style={{ marginTop: 'auto' }}
       >
         Logout
       </button>
-
     </div>
   );
 }

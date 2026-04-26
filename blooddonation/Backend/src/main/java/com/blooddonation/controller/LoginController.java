@@ -13,7 +13,6 @@ import com.blooddonation.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class LoginController {
 
     @Autowired

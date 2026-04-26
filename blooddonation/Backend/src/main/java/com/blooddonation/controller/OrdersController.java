@@ -20,7 +20,6 @@ import com.blooddonation.repository.StorageRepository;
 
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin(origins = "*")
 public class OrdersController {
 
     @Autowired

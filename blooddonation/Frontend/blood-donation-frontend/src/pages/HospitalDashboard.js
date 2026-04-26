@@ -11,6 +11,7 @@ function HospitalDashboard() {
   const [orders, setOrders] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [globalSOS, setGlobalSOS] = useState([]);
+  const [inventory, setInventory] = useState([]);
 
   const [patientData, setPatientData] = useState({
     name: "",
@@ -30,8 +31,22 @@ function HospitalDashboard() {
     fetchOrders();
     fetchAppointments();
     fetchGlobalSOS();
+    fetchInventory();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchInventory = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8080/api/storage/location/${user.user_id}`);
+      const counts = {};
+      res.data.forEach(item => {
+        counts[item.bloodType] = (counts[item.bloodType] || 0) + item.units;
+      });
+      setInventory(Object.entries(counts).map(([type, units]) => ({ type, units })));
+    } catch (err) {
+      console.error("Error fetching inventory:", err);
+    }
+  };
 
   const fetchGlobalSOS = async () => {
     try {
@@ -184,11 +199,11 @@ function HospitalDashboard() {
   };
 
   return (
-    <div className="container mt-4 text-white">
+    <div className="container mt-4">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold" style={{ fontFamily: "'Outfit', sans-serif", letterSpacing: "1px" }}>Hospital Dashboard</h2>
+        <h2 className="text-premium">Hospital Dashboard</h2>
         <NotificationSystem isAdmin={false} />
       </div>
 
@@ -231,21 +246,31 @@ function HospitalDashboard() {
 
         {/* 🩸 LOCAL STORAGE VIEW */}
         <div className="col-md-4">
-          <div className="glass-card p-4 h-100 shadow-sm border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <h4 className="fw-bold mb-3 text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Hospital Inventory</h4>
+          <div className="glass-card p-4 h-100 shadow-sm border-0">
+            <h4 className="text-premium mb-3">Hospital Inventory</h4>
             <div className="table-responsive" style={{ maxHeight: '250px' }}>
-              <table className="table table-sm table-hover table-dark table-borderless bg-transparent">
-                <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+              <table className="table table-sm table-hover table-borderless">
+                <thead>
                   <tr>
                     <th>Blood Type</th>
                     <th>Units</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {/* We'll need to fetch this state or let the InventoryAnalytics handle the visual part */}
-                  <tr className="small text-muted">
-                    <td colSpan="2" className="text-center">Live stock updates based on completed donations and received orders.</td>
-                  </tr>
+                  {inventory.length > 0 ? (
+                    inventory.map((item, index) => (
+                      <tr key={index}>
+                        <td className="fw-bold">{item.type}</td>
+                        <td>
+                          <span className="badge bg-danger">{item.units} Units</span>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className="small text-muted">
+                      <td colSpan="2" className="text-center">No stock available.</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -254,8 +279,8 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 ADD PATIENT */}
-      <div className="glass-card p-4 mb-4 shadow border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
-        <h4 className="fw-bold text-white mb-4" style={{ fontFamily: "'Outfit', sans-serif" }}>Add Patient</h4>
+      <div className="glass-card p-4 mb-4 shadow border-0">
+        <h4 className="text-premium mb-4">Add Patient</h4>
 
         <form onSubmit={addPatient} className="row g-3">
 
@@ -299,8 +324,8 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 RAISE BLOOD REQUEST */}
-      <div className="glass-card p-4 mb-4 shadow border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
-        <h4 className="fw-bold text-white mb-4" style={{ fontFamily: "'Outfit', sans-serif" }}>Raise Blood Request</h4>
+      <div className="glass-card p-4 mb-4 shadow border-0">
+        <h4 className="text-premium mb-4">Raise Blood Request</h4>
 
         <form onSubmit={raiseRequest} className="row g-3">
 
@@ -350,10 +375,10 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 PATIENT LIST */}
-      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Patients</h4>
-      <div className="glass-card p-3 border-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
-        <table className="table table-dark table-hover table-borderless mb-0 bg-transparent">
-          <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+      <h4 className="text-premium mt-5 mb-3">Patients</h4>
+      <div className="glass-card p-3 border-0">
+        <table className="table table-hover table-borderless mb-0">
+          <thead>
             <tr>
               <th className="text-white-50">Name</th>
               <th className="text-white-50">Blood</th>
@@ -374,18 +399,18 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 DONATION APPOINTMENTS */}
-      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Donation Appointments</h4>
-      <div className="glass-card p-3 border-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
-        <table className="table table-dark table-hover table-borderless mb-0 bg-transparent">
-          <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+      <h4 className="text-premium mt-5 mb-3">Donation Appointments</h4>
+      <div className="glass-card p-3 border-0">
+        <table className="table table-hover table-borderless mb-0">
+          <thead>
             <tr>
-              <th className="text-white-50">Donor Name</th>
-              <th className="text-white-50">Blood Type</th>
-              <th className="text-white-50">Date</th>
-              <th className="text-white-50">Slot</th>
-              <th className="text-white-50">Type</th>
-              <th className="text-white-50">Status</th>
-              <th className="text-white-50">Actions</th>
+              <th className="opacity-50">Donor Name</th>
+              <th className="opacity-50">Blood Type</th>
+              <th className="opacity-50">Date</th>
+              <th className="opacity-50">Slot</th>
+              <th className="opacity-50">Type</th>
+              <th className="opacity-50">Status</th>
+              <th className="opacity-50">Actions</th>
             </tr>
           </thead>
 
@@ -440,14 +465,14 @@ function HospitalDashboard() {
       </div>
 
       {/* 🔥 REQUEST LIST */}
-      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Blood Requests</h4>
-      <div className="glass-card p-3 border-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
-        <table className="table table-dark table-hover table-borderless mb-0 bg-transparent">
-          <thead style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
+      <h4 className="text-premium mt-5 mb-3">Blood Requests</h4>
+      <div className="glass-card p-3 border-0">
+        <table className="table table-hover table-borderless mb-0">
+          <thead>
             <tr>
-              <th className="text-white-50">Blood</th>
-              <th className="text-white-50">Units</th>
-              <th className="text-white-50">Status</th>
+              <th className="opacity-50">Blood</th>
+              <th className="opacity-50">Units</th>
+              <th className="opacity-50">Status</th>
             </tr>
           </thead>
 
@@ -464,7 +489,7 @@ function HospitalDashboard() {
       </div>
 
       {/* 🌍 GOOGLE MAP */}
-      <h4 className="fw-bold text-white mt-5 mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Nearby Blood Banks & Camps</h4>
+      <h4 className="text-premium mt-5 mb-3">Nearby Blood Banks & Camps</h4>
       <iframe
         src="https://www.google.com/maps?q=blood+bank+near+me&output=embed"
         width="100%"

@@ -8,7 +8,6 @@ import com.blooddonation.service.StorageService;
 
 @RestController
 @RequestMapping("/api/storage")
-@CrossOrigin(origins = "*")
 public class StorageController {
 
     @Autowired

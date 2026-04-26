@@ -8,7 +8,6 @@ import com.blooddonation.repository.DeliveriesRepository;
 
 @RestController
 @RequestMapping("/api/deliveries")
-@CrossOrigin(origins = "*")
 public class DeliveriesController {
 
     @Autowired

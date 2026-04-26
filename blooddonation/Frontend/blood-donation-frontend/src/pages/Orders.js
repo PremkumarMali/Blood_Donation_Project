@@ -180,10 +180,10 @@ function Order() {
     <div className="container py-4 page-enter">
 
       <div className="glass-card p-4 mb-5 border-0">
-        <h2 className="fw-bold mb-4 text-primary">Request Blood {isAdmin && "(From Other Banks)"}</h2>
+        <h2 className="text-premium mb-4">Request Blood {isAdmin && "(From Other Banks)"}</h2>
           <form onSubmit={handleSubmit} className="row g-3">
             <div className="col-md-3">
-              <label className="form-label fw-semibold">Blood Group</label>
+            <label className="form-label text-premium fw-bold small">Blood Group</label>
               <select 
                 className="form-select auth-input" 
                 name="bloodGroup" 
@@ -199,7 +199,7 @@ function Order() {
             </div>
 
             <div className="col-md-3">
-              <label className="form-label fw-semibold">Units Needed</label>
+            <label className="form-label text-premium fw-bold small">Units Needed</label>
               <input
                 type="number"
                 className="form-control auth-input"
@@ -213,7 +213,7 @@ function Order() {
             </div>
 
             <div className="col-md-4">
-              <label className="form-label fw-semibold">Select Blood Bank/Hospital</label>
+            <label className="form-label text-premium fw-bold small">Select Blood Bank/Hospital</label>
               <select 
                 className="form-select auth-input" 
                 name="location" 
@@ -229,20 +229,20 @@ function Order() {
             </div>
 
             <div className="col-md-2 d-flex align-items-end">
-              <button className="btn auth-btn w-100">Request</button>
+              <button className="btn btn-primary w-100">Request</button>
             </div>
           </form>
         </div>
 
       <div className="glass-card p-4 mb-5 border-0">
-        <h2 className="fw-bold mb-4 text-primary d-flex align-items-center">
+        <h3 className="text-premium mb-4 d-flex align-items-center">
           <span className="me-3">⏳</span>
           {isAdmin ? "Manage Blood Requests" : "My Pending Requests"}
-        </h2>
+        </h3>
 
         <div className="table-responsive">
           <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
+            <thead>
               <tr>
                 <th className="border-0">ID</th>
                 <th className="border-0">Requested By</th>
@@ -278,7 +278,7 @@ function Order() {
                         <div className="small"><span className="me-1">📍</span>{o.location || 'Not Specified'}</div>
                       </td>
                       <td>
-                        <span className="badge rounded-pill bg-danger bg-opacity-10 text-danger px-3 py-2 fw-bold">
+                        <span className="badge bg-danger text-white px-3 py-2">
                           {o.bloodGroup} {o.isEmergency && <span className="ms-1 animate-pulse">🆘</span>}
                         </span>
                       </td>
@@ -326,10 +326,10 @@ function Order() {
 
       {isAdmin && (
         <div className="glass-card p-4 mb-5 border-0">
-          <h2 className="fw-bold mb-4 text-primary d-flex align-items-center">
+          <h3 className="text-premium mb-4 d-flex align-items-center">
             <span className="me-3">🩸</span>
             Donation Appointments
-          </h2>
+          </h3>
           <div className="table-responsive">
             <table className="table table-hover align-middle mb-0">
               <thead className="table-light">
@@ -349,7 +349,7 @@ function Order() {
                       <div className="fw-bold">{a.userName}</div>
                     </td>
                     <td>
-                      <span className="badge rounded-pill bg-danger bg-opacity-10 text-danger px-3 py-2">
+                      <span className="badge bg-danger text-white px-3 py-2">
                         {a.bloodType}
                       </span>
                     </td>
@@ -389,14 +389,14 @@ function Order() {
       )}
 
       <div className="glass-card p-4 border-0">
-        <h2 className="fw-bold mb-4 text-success d-flex align-items-center">
+        <h3 className="text-premium mb-4 d-flex align-items-center">
           <span className="me-3">📜</span>
           Approved Blood Request History
-        </h2>
+        </h3>
 
         <div className="table-responsive">
           <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
+            <thead>
               <tr>
                 <th className="border-0">ID</th>
                 <th className="border-0">User ID</th>
@@ -420,7 +420,7 @@ function Order() {
                     <td className="fw-bold text-muted">#{o.orderId}</td>
                     <td>{o.userId}</td>
                     <td>
-                      <span className="badge rounded-pill bg-danger bg-opacity-10 text-danger px-3 py-2">
+                      <span className="badge bg-danger text-white px-3 py-2">
                         {o.bloodGroup}
                       </span>
                     </td>
