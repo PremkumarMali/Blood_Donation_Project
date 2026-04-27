@@ -16,7 +16,8 @@ function Register() {
     location: "",
     hospitalName: "",
     bankName: "",
-    license: ""
+    license: "",
+    bloodGroup: ""
   });
 
   const [error, setError] = useState("");
@@ -144,9 +145,24 @@ function Register() {
                   </div>
 
                   {formData.role === "USER" && (
-                    <div className="col-12">
-                      <input className="form-control auth-input" name="phone" placeholder="Contact Number" onChange={handleChange} />
-                    </div>
+                    <>
+                      <div className="col-md-6">
+                        <input className="form-control auth-input" name="phone" placeholder="Contact Number" onChange={handleChange} />
+                      </div>
+                      <div className="col-md-6">
+                        <select className="form-select auth-input" name="bloodGroup" onChange={handleChange} required>
+                          <option value="">Blood Group</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
+                      </div>
+                    </>
                   )}
 
                   {formData.role === "HOSPITAL" && (

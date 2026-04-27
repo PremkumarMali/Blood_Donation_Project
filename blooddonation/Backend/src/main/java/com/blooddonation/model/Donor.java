@@ -20,7 +20,8 @@ public class Donor {
     private String contact;
     private String address;
 
-    public Donor() {}
+    public Donor() {
+    }
 
     public Integer getDonor_id() {
         return donor_id;
@@ -33,6 +34,7 @@ public class Donor {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -64,6 +66,7 @@ public class Donor {
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }

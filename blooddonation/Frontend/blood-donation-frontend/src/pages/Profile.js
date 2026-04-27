@@ -85,6 +85,24 @@ function Profile() {
                   />
                 </div>
                 <div className="mb-3">
+                  <label className="small text-uppercase opacity-75">Blood Group</label>
+                  <select 
+                    className="form-select glass-input" 
+                    value={editData.bloodGroup || ""} 
+                    onChange={e => setEditData({...editData, bloodGroup: e.target.value})}
+                  >
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+                <div className="mb-3">
                   <label className="small text-uppercase opacity-75">Address</label>
                   <textarea 
                     className="form-control glass-input" 
